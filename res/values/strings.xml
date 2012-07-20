@@ -1,0 +1,17 @@
+<resources>
+
+    <string name="app_name">PsychGuru</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_home">AppHome</string>
+<string-array name="topics">
+        <item>Psychopharmacology</item>
+        <item>Psychotherapy</item>
+        <item>Mood disorders</item>
+        <item>Anxiety disorders</item>
+        <item>Psychotic disorders</item>
+        <item>Psychosomatic disorder</item>
+        <item>Substance use disorders</item>
+        <item>Aids during clerkship</item>
+    </string-array>
+</resources>
