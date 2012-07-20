@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/app_background" >
 
     <TextView
         android:id="@+id/textView1"
@@ -11,18 +12,60 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="26dp"
-        android:text="Select a Topic"
+        android:text="Select a topic:"
         android:textSize="18dip" />
 
     <Spinner
         android:id="@+id/sp_topics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:layout_marginLeft="49dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
         android:entries="@array/topics"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent" />
+        />
+
+    <TextView
+        android:id="@+id/tV_subTopic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/sp_topics"
+        android:layout_marginTop="46dp"
+        android:text="Select a sub-topic:"
+        android:textSize="18dip" />
+
+    <RadioGroup
+        android:id="@+id/rB_subTopic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" >
+
+        <RadioButton
+            android:id="@+id/rB_diagCons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Diagnostic Considerations" />
+
+        <RadioButton
+            android:id="@+id/rB_management"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Management" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="70dip"
+        android:layout_height="30dip"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="30dp"
+        android:layout_marginBottom="28dp"
+        android:background="@android:color/transparent"
+        android:text="Ok"
+        android:textSize="18dip" />
 
 </RelativeLayout>
