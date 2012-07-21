@@ -23,6 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
         android:entries="@array/topics"
+        android:background="@android:color/transparent"
         />
 
     <TextView
@@ -35,12 +36,26 @@
         android:text="Select a sub-topic:"
         android:textSize="18dip" />
 
+    <Button
+        android:id="@+id/button_ok"
+        android:layout_width="70dip"
+        android:layout_height="30dip"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="30dp"
+        android:layout_marginBottom="28dp"
+        android:background="@android:color/transparent"
+        android:onClick="onClickHandler"
+        android:text="Ok"
+        android:textSize="18dip" />
+
     <RadioGroup
         android:id="@+id/rB_subTopic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" >
+        android:layout_alignLeft="@+id/tV_subTopic"
+        android:layout_below="@+id/tV_subTopic"
+        android:layout_marginTop="20dp" >
 
         <RadioButton
             android:id="@+id/rB_diagCons"
@@ -55,17 +70,5 @@
             android:layout_height="wrap_content"
             android:text="Management" />
     </RadioGroup>
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="70dip"
-        android:layout_height="30dip"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="30dp"
-        android:layout_marginBottom="28dp"
-        android:background="@android:color/transparent"
-        android:text="Ok"
-        android:textSize="18dip" />
 
 </RelativeLayout>
