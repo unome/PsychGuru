@@ -9,8 +9,11 @@ import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +23,6 @@ public class HomeActivity extends Activity implements OnItemSelectedListener{
 	RadioGroup rG_subTopic;
 	TextView tV_subTopic;
 	String selTopic=null;
-	String selSubTopic=null;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,8 +38,8 @@ public class HomeActivity extends Activity implements OnItemSelectedListener{
 			SharedPreferences.Editor editor = wmbPreference.edit();
 			editor.putBoolean("FIRSTRUN", false);
 			editor.putInt("currQuestion",1);
-			editor.putInt("currentTopic", -1);
-			editor.putInt("currentSubTopic",-1);
+			editor.putString("currentTopic", "none");
+			editor.putString("currentSubTopic","Diagnostic Considerations");
 			editor.putInt("currentScore", 0);
 			editor.commit();
 		}
@@ -46,22 +48,56 @@ public class HomeActivity extends Activity implements OnItemSelectedListener{
 	}
 
 	private void showContent() {
-		
+
 		rG_subTopic = (RadioGroup)findViewById(R.id.rB_subTopic);
+		final RadioButton rB_diagCons=(RadioButton)findViewById(R.id.rB_diagCons);
+		final RadioButton rB_mgmt=(RadioButton)findViewById(R.id.rB_management);
+		rB_diagCons.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				rB_mgmt.setChecked(false);
+				SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(v.getContext());
+				SharedPreferences.Editor editor = wmbPreference.edit();
+				editor.putString("currentSubTopic","Diagnostic Considerations");
+				editor.commit();
+			}
+		});
+		rB_mgmt.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				rB_diagCons.setChecked(false);
+				SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(v.getContext());
+				SharedPreferences.Editor editor = wmbPreference.edit();
+				editor.putString("currentSubTopic","Management");
+				editor.commit();
+			}
+		});
 		tV_subTopic=(TextView)findViewById(R.id.tV_subTopic);
 		rG_subTopic.setVisibility(View.INVISIBLE);
 		tV_subTopic.setVisibility(View.INVISIBLE);
 		Spinner sp_topics=(Spinner)findViewById(R.id.sp_topics);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+		        R.array.topics,R.layout.textview_for_spinner);	
+		sp_topics.setAdapter(adapter);
 		sp_topics.setOnItemSelectedListener(this);
 	}
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 		selTopic = parent.getItemAtPosition(position).toString();
+		SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(view.getContext());
+		SharedPreferences.Editor editor = wmbPreference.edit();
+		editor.putString("currentTopic",selTopic);
+		editor.commit();
 		if(!excTopics.contains(selTopic))
 		{
 			tV_subTopic.setVisibility(View.VISIBLE);
 			rG_subTopic.setVisibility(View.VISIBLE);
+		}
+		else
+		{
+			tV_subTopic.setVisibility(View.INVISIBLE);
+			rG_subTopic.setVisibility(View.INVISIBLE);
 		}
 	}
 
@@ -74,11 +110,7 @@ public class HomeActivity extends Activity implements OnItemSelectedListener{
 				Toast.makeText(v.getContext(), "Please select a topic",
 						Toast.LENGTH_LONG).show();
 			}
-			if(!excTopics.contains(selTopic)&&selSubTopic==null)
-			{
-				Toast.makeText(v.getContext(), "Please select a sub topic",
-						Toast.LENGTH_LONG).show();
-			}
+			//New activity showing questions
 		}
 	}
 

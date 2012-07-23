@@ -23,7 +23,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
         android:entries="@array/topics"
-        android:background="@android:color/transparent"
+        android:background="@drawable/spinner_background"
+        android:layout_centerInParent="true"
         />
 
     <TextView
@@ -44,7 +45,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="30dp"
         android:layout_marginBottom="28dp"
-        android:background="@android:color/transparent"
+        android:background="@drawable/button_background"
         android:onClick="onClickHandler"
         android:text="Ok"
         android:textSize="18dip" />
