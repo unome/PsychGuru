@@ -23,7 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
         android:entries="@array/topics"
-        android:background="@drawable/spinner_background"
+        android:background="@drawable/button_background"
         android:layout_centerInParent="true"
         />
 
@@ -56,8 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tV_subTopic"
         android:layout_below="@+id/tV_subTopic"
-        android:layout_marginTop="20dp" >
-
+        android:layout_marginTop="20dp">
         <RadioButton
             android:id="@+id/rB_diagCons"
             android:layout_width="wrap_content"
