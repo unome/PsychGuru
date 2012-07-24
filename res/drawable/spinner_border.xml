@@ -5,10 +5,11 @@
         android:radius="3dip" />
     <solid
         android:color="@android:color/transparent" />
-        <padding
+    <padding
         android:left="3dip" />
     <stroke
         android:width="1dip"
         android:color="#000000"
         />
+
 </shape>
