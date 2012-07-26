@@ -14,6 +14,7 @@ public final class R {
     public static final class attr {
     }
     public static final class dimen {
+        public static final int choicesDisplaySize=0x7f040004;
         public static final int padding_large=0x7f040002;
         public static final int padding_medium=0x7f040001;
         public static final int padding_small=0x7f040000;
@@ -25,26 +26,35 @@ public final class R {
         public static final int arrow_icon=0x7f020002;
         public static final int button_background=0x7f020003;
         public static final int button_border=0x7f020004;
-        public static final int home_icon=0x7f020005;
-        public static final int ic_action_search=0x7f020006;
-        public static final int ic_launcher=0x7f020007;
-        public static final int rg_background=0x7f020008;
-        public static final int spinner_background=0x7f020009;
-        public static final int spinner_border=0x7f02000a;
+        public static final int drop_shadow=0x7f020005;
+        public static final int home_icon=0x7f020006;
+        public static final int ic_action_search=0x7f020007;
+        public static final int ic_launcher=0x7f020008;
+        public static final int rg_background=0x7f020009;
+        public static final int spinner_background=0x7f02000a;
+        public static final int spinner_border=0x7f02000b;
     }
     public static final class id {
+        public static final int button1=0x7f090010;
+        public static final int button2=0x7f090011;
+        public static final int button3=0x7f090012;
         public static final int button_ok=0x7f090000;
+        public static final int horScroll=0x7f09000e;
+        public static final int horscroll=0x7f09000c;
         public static final int iV_homeButton=0x7f090008;
         public static final int imageButton1=0x7f090007;
-        public static final int menu_settings=0x7f09000b;
+        public static final int menu_settings=0x7f090013;
         public static final int rB_diagCons=0x7f090002;
         public static final int rB_management=0x7f090003;
         public static final int rB_subTopic=0x7f090001;
+        public static final int scrollView1=0x7f09000b;
+        public static final int scrollView2=0x7f09000d;
         public static final int sp_questionNo=0x7f09000a;
         public static final int sp_topics=0x7f090005;
         public static final int tV_scoreDisplay=0x7f090009;
         public static final int tV_subTopic=0x7f090006;
         public static final int textView1=0x7f090004;
+        public static final int textView2=0x7f09000f;
     }
     public static final class layout {
         public static final int home=0x7f030000;

@@ -1,5 +1,6 @@
 <resources>
-    <dimen name="textSize">21dip</dimen>
+    <dimen name="textSize">20dp</dimen>
+    <dimen name="choicesDisplaySize">250dp</dimen>
 
 
 </resources>
