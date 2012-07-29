@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -51,7 +52,7 @@ public class HomeActivity extends Activity implements OnItemSelectedListener{
 			dialog.setTitle("About");
 			final Button next_button=(Button)dialog.findViewById(R.id.button_next);
 			next_button.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					if(next_button.getText().equals("Next"))
@@ -166,9 +167,44 @@ public class HomeActivity extends Activity implements OnItemSelectedListener{
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add("About");
+		menu.add(1,1,Menu.FIRST,"About");
+		menu.add(1,2,Menu.FIRST+1,"Settings");
 		return super.onCreateOptionsMenu(menu);
 	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId())
+		{
+		case 1:
+			final Dialog dialog = new Dialog(this);
+			dialog.setContentView(R.layout.about_dialog);
+			dialog.setTitle("About");
+			final Button next_button=(Button)dialog.findViewById(R.id.button_next);
+			next_button.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					if(next_button.getText().equals("Next"))
+					{
+						TextView tv_about=(TextView)dialog.findViewById(R.id.tV_about);
+						Log.d(TAG,getString(R.string.about_app));
+						tv_about.setText(getString(R.string.about_app));
+						next_button.setText("Done");
+					}
+					else if(next_button.getText().equals("Done"))
+					{
+						dialog.dismiss();
+					}
+				}
+			});
+			dialog.show();
+		case 2:
+			//show settings
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
 
 
 
