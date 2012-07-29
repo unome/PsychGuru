@@ -2,12 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/app_background" >
+    android:background="@drawable/app_background"
+    android:onClick="onClickHandler" >
 
     <ImageView
         android:id="@+id/iV_homeButton"
-        android:layout_width="40dip"
-        android:layout_height="40dip"
+        android:layout_width="37dip"
+        android:layout_height="37dip"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="@android:color/transparent"
@@ -31,29 +32,25 @@
         android:layout_height="40dip"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent"
+        android:text="View question and correct answer" />
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/quesDisplaySize"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/iV_homeButton"
         android:layout_marginTop="21dp" >
 
-        <HorizontalScrollView
-            android:id="@+id/horscroll"
+        <TextView
+            android:id="@+id/tV_quesDisplay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="match_parent"
+            android:text="TextView"
+            android:textSize="@dimen/textSize" />
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="@dimen/textSize" />
-        </HorizontalScrollView>
     </ScrollView>
 
     <ScrollView
@@ -63,50 +60,70 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/scrollView1"
-        android:layout_marginTop="110dip" >
+        android:layout_marginTop="10dip" >
 
         <HorizontalScrollView
             android:id="@+id/horScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <TextView
-                android:id="@+id/textView2"
+            <TableLayout
+                android:id="@+id/tL_choiceTable"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="TextView"
-                android:textSize="@dimen/textSize" />
+                android:layout_height="match_parent" >
+
+            </TableLayout>
+
         </HorizontalScrollView>
     </ScrollView>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/button_prevQues"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/scrollView2"
         android:background="@android:color/transparent"
-        android:text="Prev Question"
+        android:onClick="onClickHandler"
+        android:paddingBottom="5dip"
+        android:paddingLeft="3dip"
+        android:paddingRight="3dip"
+        android:paddingTop="5dip"
+        android:text="Prev Ques"
+        android:textColor="@color/button_text_color"
         android:textSize="@dimen/textSize" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_skipQues"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_below="@+id/scrollView2"
         android:background="@android:color/transparent"
-        android:text="Skip Question"
+        android:onClick="onClickHandler"
+        android:paddingBottom="5dip"
+        android:paddingLeft="3dip"
+        android:paddingRight="3dip"
+        android:paddingTop="5dip"
+        android:text="Skip Ques"
+        android:textColor="@color/button_text_color"
         android:textSize="@dimen/textSize" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button_checkAnswer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/button_prevQues"
         android:layout_centerHorizontal="true"
         android:background="@android:color/transparent"
-        android:text="Button"
+        android:onClick="onClickHandler"
+        android:paddingLeft="3dip"
+        android:paddingRight="3dip"
+        android:text="Check Answer"
+        android:textColor="@color/button_text_color"
         android:textSize="@dimen/textSize" />
 
 </RelativeLayout>

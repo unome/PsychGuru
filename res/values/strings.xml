@@ -14,4 +14,6 @@
         <item>Substance use disorders</item>
         <item>Aids during clerkship</item>
     </string-array>
+<string name="author_developer">Authors: \n Dr Aashish Sharma \n Dr Venkata Kolli \n Dr Krishna Madabushi \n \nDeveloper: \n Apuroop Gadde</string>
+<string name="about_app">This app is created for medical students during their psychiatry placement. We sit to teach using multiple choice questions and explanations. Students may find the explanations most useful, hence we advise the to carefully review these. We would appreciate any feedback regarding the app and the content</string>
 </resources>

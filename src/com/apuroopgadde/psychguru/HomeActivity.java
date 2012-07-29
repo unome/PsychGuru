@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -42,6 +46,28 @@ public class HomeActivity extends Activity implements OnItemSelectedListener{
 			editor.putString("currentSubTopic","Diagnostic Considerations");
 			editor.putInt("currentScore", 0);
 			editor.commit();
+			final Dialog dialog = new Dialog(this);
+			dialog.setContentView(R.layout.about_dialog);
+			dialog.setTitle("About");
+			final Button next_button=(Button)dialog.findViewById(R.id.button_next);
+			next_button.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					if(next_button.getText().equals("Next"))
+					{
+						TextView tv_about=(TextView)dialog.findViewById(R.id.tV_about);
+						Log.d(TAG,getString(R.string.about_app));
+						tv_about.setText(getString(R.string.about_app));
+						next_button.setText("Done");
+					}
+					else if(next_button.getText().equals("Done"))
+					{
+						dialog.dismiss();
+					}
+				}
+			});
+			dialog.show();
 		}
 		showContent();
 
@@ -136,6 +162,12 @@ public class HomeActivity extends Activity implements OnItemSelectedListener{
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
 
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add("About");
+		return super.onCreateOptionsMenu(menu);
 	}
 
 

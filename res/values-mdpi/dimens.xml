@@ -1,6 +1,8 @@
 <resources>
-    <dimen name="textSize">18dp</dimen>
+    <dimen name="textSize">17sp</dimen>
     <dimen name="choicesDisplaySize">200dp</dimen>
+    <dimen name="quesDisplaySize">120dp</dimen>
+    <string name="textSizeInt">17</string>
 
 
 </resources>

@@ -13,16 +13,25 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".HomeActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_home"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden" >
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".QuestionDisplayActivity"></activity>
+        <activity
+            android:name=".QuestionDisplayActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".AnswerExplanationActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>
