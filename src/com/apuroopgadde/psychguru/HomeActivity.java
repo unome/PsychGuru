@@ -1,5 +1,6 @@
 package com.apuroopgadde.psychguru;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -8,6 +9,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,14 +27,23 @@ import android.widget.Toast;
 
 public class HomeActivity extends Activity implements OnItemSelectedListener{
 	final String TAG="psychGuru";
+	DbHelper dbhelper;
+	//Array list containing the topics that do not have subTopics
 	ArrayList<String> excTopics = new ArrayList<String>();
 	RadioGroup rG_subTopic;
 	TextView tV_subTopic;
 	String selTopic=null;
+	String selSubTopic=null;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
+		dbhelper = new DbHelper(this);
+		try {
+			dbhelper.createDataBase();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		excTopics.add("Psychopharmacology");
 		excTopics.add("Psychotherapy");
 		excTopics.add("Aids during clerkship");
@@ -42,9 +54,12 @@ public class HomeActivity extends Activity implements OnItemSelectedListener{
 		{
 			SharedPreferences.Editor editor = wmbPreference.edit();
 			editor.putBoolean("FIRSTRUN", false);
-			editor.putInt("currQuestion",1);
+			editor.putInt("currentQuestion",1);
+			editor.putInt("currentQuestionId",1);
+			editor.putInt("topicIdinDb", 0);
+			editor.putInt("totalQuestions",0);
 			editor.putString("currentTopic", "none");
-			editor.putString("currentSubTopic","Diagnostic Considerations");
+			editor.putString("currentSubTopic","none");
 			editor.putInt("currentScore", 0);
 			editor.commit();
 			final Dialog dialog = new Dialog(this);
@@ -58,7 +73,6 @@ public class HomeActivity extends Activity implements OnItemSelectedListener{
 					if(next_button.getText().equals("Next"))
 					{
 						TextView tv_about=(TextView)dialog.findViewById(R.id.tV_about);
-						Log.d(TAG,getString(R.string.about_app));
 						tv_about.setText(getString(R.string.about_app));
 						next_button.setText("Done");
 					}
@@ -75,7 +89,6 @@ public class HomeActivity extends Activity implements OnItemSelectedListener{
 	}
 
 	private void showContent() {
-
 		rG_subTopic = (RadioGroup)findViewById(R.id.rB_subTopic);
 		final RadioButton rB_diagCons=(RadioButton)findViewById(R.id.rB_diagCons);
 		final RadioButton rB_mgmt=(RadioButton)findViewById(R.id.rB_management);
@@ -85,8 +98,8 @@ public class HomeActivity extends Activity implements OnItemSelectedListener{
 				rB_mgmt.setChecked(false);
 				SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(v.getContext());
 				SharedPreferences.Editor editor = wmbPreference.edit();
-				editor.putString("currentSubTopic","Diagnostic Considerations");
-				editor.commit();
+				selSubTopic="Diagnostic considerations";
+
 			}
 		});
 		rB_mgmt.setOnClickListener(new View.OnClickListener() {
@@ -95,8 +108,7 @@ public class HomeActivity extends Activity implements OnItemSelectedListener{
 				rB_diagCons.setChecked(false);
 				SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(v.getContext());
 				SharedPreferences.Editor editor = wmbPreference.edit();
-				editor.putString("currentSubTopic","Management");
-				editor.commit();
+				selSubTopic="Management";
 			}
 		});
 		tV_subTopic=(TextView)findViewById(R.id.tV_subTopic);
@@ -114,18 +126,16 @@ public class HomeActivity extends Activity implements OnItemSelectedListener{
 		selTopic = parent.getItemAtPosition(position).toString();
 		if(!excTopics.contains(selTopic))
 		{
+			selSubTopic="Diagnostic considerations";
 			tV_subTopic.setVisibility(View.VISIBLE);
 			rG_subTopic.setVisibility(View.VISIBLE);
 		}
 		else
 		{
+			selSubTopic="none";
 			tV_subTopic.setVisibility(View.INVISIBLE);
 			rG_subTopic.setVisibility(View.INVISIBLE);
 		}
-		SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(view.getContext());
-		SharedPreferences.Editor editor = wmbPreference.edit();		
-		editor.putString("currentTopic",selTopic);
-		editor.commit();
 		resetRadioButtons();
 	}
 	@Override
@@ -151,19 +161,45 @@ public class HomeActivity extends Activity implements OnItemSelectedListener{
 				return;
 			}
 			else{
-				Intent showQuestions = new Intent(this,QuestionDisplayActivity.class);
-				startActivityForResult(showQuestions,0);
-			}
+				SQLiteDatabase db = dbhelper.getReadableDatabase();
+				String sqlQuery= "select * from "+dbhelper.topicsTable+" where "+dbhelper.topic+"=\""+selTopic+"\" AND "+
+						dbhelper.subTopic+"=\""+selSubTopic+"\"";
+				Cursor sqlCur=db.rawQuery(sqlQuery, null);
+				if(sqlCur.moveToNext())
+				{
+					SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
+					SharedPreferences.Editor editor = wmbPreference.edit();	
+					editor.putString("currentSubTopic",selSubTopic);
+					editor.putString("currentTopic",selTopic);
+					editor.putInt("topicIdinDb",sqlCur.getInt(0));
+					editor.putInt("totalQuestions",sqlCur.getInt(3));
+					editor.putInt("currentScore",sqlCur.getInt(4));
+					editor.putInt("currentQuestion",sqlCur.getInt(5));
+					editor.commit();
+					sqlQuery="select * from "+dbhelper.qTable+" where "+dbhelper.topicId+"=\""+sqlCur.getInt(0)+"\"";
+					sqlCur.close();
+					sqlCur=db.rawQuery(sqlQuery, null);
+					ArrayList<String> answeredQues= new ArrayList<String>();
+					while(sqlCur.moveToNext())
+					{
+						if(sqlCur.getString(3).equals("false"))
+							answeredQues.add("false");
+						else
+							answeredQues.add("true");
+					}
+					//Create an array to store the answered question numbers
+					Intent showQuestions = new Intent(this,QuestionDisplayActivity.class);
+					showQuestions.putStringArrayListExtra("answeredQues",answeredQues);
+					startActivityForResult(showQuestions,0);
+				}
 
-			//New activity showing questions
+			}
 		}
 	}
 
 
 	@Override
-	public void onNothingSelected(AdapterView<?> arg0) {
-
-	}
+	public void onNothingSelected(AdapterView<?> arg0) {}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -174,39 +210,7 @@ public class HomeActivity extends Activity implements OnItemSelectedListener{
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId())
-		{
-		case 1:
-			final Dialog dialog = new Dialog(this);
-			dialog.setContentView(R.layout.about_dialog);
-			dialog.setTitle("About");
-			final Button next_button=(Button)dialog.findViewById(R.id.button_next);
-			next_button.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					if(next_button.getText().equals("Next"))
-					{
-						TextView tv_about=(TextView)dialog.findViewById(R.id.tV_about);
-						Log.d(TAG,getString(R.string.about_app));
-						tv_about.setText(getString(R.string.about_app));
-						next_button.setText("Done");
-					}
-					else if(next_button.getText().equals("Done"))
-					{
-						dialog.dismiss();
-					}
-				}
-			});
-			dialog.show();
-		case 2:
-			//show settings
-		}
+		MiscOperations.handleMenuItem(item, this);
 		return super.onOptionsItemSelected(item);
 	}
-
-
-
-
-
 }

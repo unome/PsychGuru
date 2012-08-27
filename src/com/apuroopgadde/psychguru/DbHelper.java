@@ -16,9 +16,16 @@ public class DbHelper extends SQLiteOpenHelper{
 
 	//The Android's default system path of your application database.
 	private static String DB_PATH = "/data/data/com.apuroopgadde.psychguru/databases/";
-	private static String DB_NAME = "dQuestionsDb";
-	public static String qTable = "QuestionsTable";
-	public static String oTable = "OptionsTable";
+	private static String DB_NAME = "psychGuruDb";
+	public static String topicsTable="topicsTable";
+	public static String qTable = "questionsTable";
+	public static String topicId="topicId";
+	public static String topic="topic";
+	public static String subTopic="subTopic";
+	public static String noOfQues="noOfQues";
+	public static String topicScore="score";
+	public static String currentQues="currQues";
+	public static String oTable = "choicesTable";
 	public static String aTable = "AnswerExplanation";
 	public static String qid = "questionId";
 	public static String quesAnswered="answered";
@@ -26,7 +33,7 @@ public class DbHelper extends SQLiteOpenHelper{
 	public static String question = "Question";
 	public static String noAnswers = "noOfAnswers";
 	public static String option = "option";
-	public static String correct = "Correct";
+	public static String correct = "correctAns";
 	public static String expla = "explanation";	
 	public SQLiteDatabase myDataBase;
 	private final Context myContext;

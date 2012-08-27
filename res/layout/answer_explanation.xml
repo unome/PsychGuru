@@ -37,7 +37,7 @@
         android:text="View question and correct answer" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/tV_correctOrNot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -51,41 +51,44 @@
         android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
+        android:layout_above="@+id/button_viewQues"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="32dp" >
+        android:layout_below="@+id/tV_correctOrNot"
+        android:layout_marginTop="24dp" >
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tV_Explanation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="17dp"
             android:text="TextView"
             android:textSize="@dimen/textSize" />
     </ScrollView>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/button_viewQues"
         android:layout_width="150dip"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/button2"
         android:background="@android:color/transparent"
+        android:onClick="onClickHandler"
         android:text="View question and correct answer"
         android:textColor="@color/button_text_color"
         android:textSize="@dimen/textSize" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_nextQues"
         android:layout_width="150dip"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/button_viewQues"
         android:background="@android:color/transparent"
+        android:onClick="onClickHandler"
         android:paddingBottom="15dip"
-        android:text="Next question"
+        android:text="Next Question"
         android:textColor="@color/button_text_color"
         android:textSize="@dimen/textSize" />
 

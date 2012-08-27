@@ -50,7 +50,6 @@
             android:layout_height="match_parent"
             android:text="TextView"
             android:textSize="@dimen/textSize" />
-
     </ScrollView>
 
     <ScrollView
@@ -71,9 +70,7 @@
                 android:id="@+id/tL_choiceTable"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
-
             </TableLayout>
-
         </HorizontalScrollView>
     </ScrollView>
 
@@ -84,12 +81,12 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/scrollView2"
+        android:layout_marginLeft="3dip"
+        android:layout_marginRight="3dip"
         android:background="@android:color/transparent"
         android:onClick="onClickHandler"
-        android:paddingBottom="5dip"
-        android:paddingLeft="3dip"
-        android:paddingRight="3dip"
-        android:paddingTop="5dip"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="5dip"
         android:text="Prev Ques"
         android:textColor="@color/button_text_color"
         android:textSize="@dimen/textSize" />
@@ -101,12 +98,12 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/scrollView2"
+        android:layout_marginLeft="3dip"
+        android:layout_marginRight="3dip"
         android:background="@android:color/transparent"
         android:onClick="onClickHandler"
-        android:paddingBottom="5dip"
-        android:paddingLeft="3dip"
-        android:paddingRight="3dip"
-        android:paddingTop="5dip"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="5dip"
         android:text="Skip Ques"
         android:textColor="@color/button_text_color"
         android:textSize="@dimen/textSize" />
@@ -116,12 +113,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignTop="@+id/button_prevQues"
+        android:layout_below="@+id/scrollView2"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="3dip"
+        android:layout_marginRight="3dip"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="5dip"
         android:background="@android:color/transparent"
         android:onClick="onClickHandler"
-        android:paddingLeft="3dip"
-        android:paddingRight="3dip"
         android:text="Check Answer"
         android:textColor="@color/button_text_color"
         android:textSize="@dimen/textSize" />
