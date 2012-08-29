@@ -168,7 +168,11 @@ public class AnswerExplanationActivity extends Activity implements OnItemSelecte
 					dbhelper.rowId+" = "+wmbPreference.getInt("currentQuestionId", 1)+";";
 			db.execSQL(setQuesAnswered);
 			db.close();
-		}	
+		}
+		else
+		{
+			correctOrNot.setText("Explanation to the answer is:");
+		}
 	}
 
 	@Override
@@ -189,7 +193,9 @@ public class AnswerExplanationActivity extends Activity implements OnItemSelecte
 			editor.putInt("currentQuestion",currQuestion);
 			editor.putInt("currentQuestionId",currQuestionId);
 			editor.commit();
-			onCreate(null);
+			Intent showQuestions = new Intent(this,QuestionDisplayActivity.class);
+			showQuestions.putStringArrayListExtra("answeredQues",answeredQues);
+			startActivityForResult(showQuestions,0);
 		}
 	}
 
@@ -205,13 +211,10 @@ public class AnswerExplanationActivity extends Activity implements OnItemSelecte
 		{
 			if(currQuestion!=totalNoOfQues)
 			{
-				if(!alreadyAnswered)
-				{
-					int nextQuestion=wmbPreference.getInt("currentQuestion",1)+1;
-					SharedPreferences.Editor editor = wmbPreference.edit();
-					editor.putInt("currentQuestion", nextQuestion);
-					editor.commit();
-				}
+				int nextQuestion=wmbPreference.getInt("currentQuestion",1)+1;
+				SharedPreferences.Editor editor = wmbPreference.edit();
+				editor.putInt("currentQuestion", nextQuestion);
+				editor.commit();
 				Intent showQuestions = new Intent(this,QuestionDisplayActivity.class);
 				showQuestions.putStringArrayListExtra("answeredQues",answeredQues);
 				startActivityForResult(showQuestions,0);

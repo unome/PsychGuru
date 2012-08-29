@@ -221,6 +221,7 @@ public class QuestionDisplayActivity extends Activity implements OnItemSelectedL
 				Intent showAnswer = new Intent(QuestionDisplayActivity.this,
 						AnswerExplanationActivity.class);
 				showAnswer.putExtra("alreadyAnswered",true);
+				showAnswer.putStringArrayListExtra("answeredQues", answeredQues);
 				startActivityForResult(showAnswer, 0);
 			}
 			else{
