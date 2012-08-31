@@ -1,0 +1,16 @@
+<!--?xml version="1.0" encoding="utf-8"?-->
+<linearlayout 
+    android:id="@+id/groupname" 
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="fill_parent" 
+    android:layout_height="40dip">
+<textview 
+    android:id="@+id/tvGroupName"
+     android:layout_width="wrap_content" 
+     android:layout_height="40dip" 
+     android:textSize="16sp" 
+     android:textStyle="bold" 
+     android:paddingLeft="30dip" 
+     android:gravity="center_vertical">
+</textview>
+</linearlayout>
