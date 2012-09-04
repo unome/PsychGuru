@@ -40,8 +40,8 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout1=0x7f0a0000;
-        public static final int button1=0x7f0a000e;
         public static final int button_checkAnswer=0x7f0a001e;
+        public static final int button_firstOk=0x7f0a000e;
         public static final int button_next=0x7f0a0003;
         public static final int button_nextQues=0x7f0a000b;
         public static final int button_ok=0x7f0a0017;

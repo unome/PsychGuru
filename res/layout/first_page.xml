@@ -17,11 +17,14 @@
     </ExpandableListView>
 
     <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
+        android:id="@+id/button_firstOk"
+        android:layout_width="match_parent"       	     
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Button" />
-
+        android:background="@android:color/transparent"        
+       	android:textColor="@color/button_text_color"   
+        android:paddingBottom="10dip"
+        android:paddingTop="10dip"
+        android:text="Ok" />
 </RelativeLayout>
