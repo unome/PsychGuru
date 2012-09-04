@@ -11,6 +11,7 @@
      android:textSize="@dimen/textSize" 
      android:textStyle="bold" 
      android:paddingLeft="30dip" 
+     android:paddingBottom="20dip"
      android:gravity="center_vertical">
 </textview>
 </linearlayout>

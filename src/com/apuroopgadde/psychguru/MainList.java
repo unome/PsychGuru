@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -20,11 +21,10 @@ public class MainList extends Activity
 		ExpandableListView list = (ExpandableListView)findViewById(R.id.eL_mainList);
 		list.setGroupIndicator(null);
 		list.setChildIndicator(null);
-		String[] titles = {"A","B","C"};
-		String[] fruits = {"a1","a2"};
-		String[] veggies = {"b1","b2","b3"};
-		String[] meats = {"c1","c2"};
-		String[][] contents = {fruits,veggies,meats};
+		String[] titles = {"History Taking","Questionnaire"};
+		String[] infoTopics = {"a1","a2"};
+		String[] quesTopics = {"b1","b2","b3"};
+		String[][] contents = {infoTopics,quesTopics};
 		SimplerExpandableListAdapter adapter = new SimplerExpandableListAdapter(this,
 				titles, contents);
 		list.setAdapter(adapter);
@@ -85,13 +85,12 @@ class SimplerExpandableListAdapter extends BaseExpandableListAdapter {
  @Override
  public View getGroupView(int groupPosition, boolean isExpanded,
      View convertView, ViewGroup parent) {
-   TextView row = (TextView)convertView;
-   if(row == null) {
-     row = new TextView(mContext);
-   }
-   row.setTypeface(Typeface.DEFAULT_BOLD);
-   row.setText(mTitles[groupPosition]);
-   return row;
+	   TextView row = (TextView)convertView;
+	   if(row == null) {
+	     row = new TextView(mContext);
+	   }
+	   row.setText(mTitles[groupPosition]);
+	   return row;
  }
 
  @Override
