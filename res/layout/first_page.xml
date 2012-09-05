@@ -4,7 +4,14 @@
     android:orientation="vertical" 
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent">
-
+    <ImageView
+        android:id="@+id/imageButton1"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/home_icon" />
     <ExpandableListView
         android:id="@+id/eL_mainList"
         android:layout_width="match_parent"
@@ -13,19 +20,5 @@
         android:layout_alignParentTop="true"
         android:layout_marginBottom="50dp"
         android:layout_marginTop="57dp" >
-
     </ExpandableListView>
-
-    <Button
-        android:id="@+id/button_firstOk"
-		android:textSize="@dimen/textSize"  
-        android:layout_width="match_parent"       	     
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="@android:color/transparent"        
-       	android:textColor="@color/button_text_color"   
-        android:paddingBottom="10dip"
-        android:paddingTop="10dip"
-        android:text="OK" />
 </RelativeLayout>

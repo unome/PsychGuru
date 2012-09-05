@@ -1,17 +1,19 @@
 <!--?xml version="1.0" encoding="utf-8"?-->
-<linearlayout 
+<LinearLayout 
     xmlns:android="http://schemas.android.com/apk/res/android" 
     android:orientation="horizontal" 
     android:layout_width="fill_parent" 
     android:layout_height="40dip" 
     android:gravity="center_vertical">
-<textview 
+<TextView 
         android:id="@+id/tvPlayerName" 
         android:paddingLeft="50dip" 
+        android:clickable="true"
         android:textSize="@dimen/textSize" 
         android:layout_width="wrap_content" 
         android:layout_height="30dip" 
+      	android:textColor="@color/button_text_color"     
         android:gravity="center_vertical">
           
-</textview>
-</linearlayout>
+</TextView>
+</LinearLayout>
