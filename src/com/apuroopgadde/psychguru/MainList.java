@@ -2,7 +2,9 @@ package com.apuroopgadde.psychguru;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,11 +29,13 @@ public class MainList extends Activity
 		SimplerExpandableListAdapter adapter = new SimplerExpandableListAdapter(this,
 				titles, contents,list);
 		list.setAdapter(adapter);
+        Drawable plus = (Drawable) getResources().getDrawable(R.drawable.expander_icon);
+        list.setGroupIndicator(plus);
+		list.setDivider(null);
 
 	}
 
 }
-
 
 class SimplerExpandableListAdapter extends BaseExpandableListAdapter {
 	private Context mContext;
@@ -74,7 +78,7 @@ class SimplerExpandableListAdapter extends BaseExpandableListAdapter {
 				tvSubTopic.setTextColor(Color.BLUE);
 			}
 		});
-		tvPlayerName.setText(mContents[groupPosition][childPosition]);
+		tvPlayerName.setText("   "+mContents[groupPosition][childPosition]);
 		return convertView;
 	}
 	@Override
@@ -102,7 +106,7 @@ class SimplerExpandableListAdapter extends BaseExpandableListAdapter {
 		}
 
 		TextView tvGroupName = (TextView) convertView.findViewById(R.id.tvGroupName);
-		tvGroupName.setText(mTitles[groupPosition]);
+		tvGroupName.setText("   "+mTitles[groupPosition]);
 
 		return convertView;
 	}
@@ -123,7 +127,6 @@ class SimplerExpandableListAdapter extends BaseExpandableListAdapter {
 	}
 	@Override
 	public void onGroupExpanded(int groupPosition) {
-		// TODO Auto-generated method stub
 		if(groupPosition != lastExpandedGroup){
 			mList.collapseGroup(lastExpandedGroup);
 		}
