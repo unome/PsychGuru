@@ -30,7 +30,9 @@ public class MainList extends Activity
 				titles, contents,list);
 		list.setAdapter(adapter);
         Drawable plus = (Drawable) getResources().getDrawable(R.drawable.expander_icon);
+        Drawable background = (Drawable) getResources().getDrawable(R.drawable.expandablelist_background);
         list.setGroupIndicator(plus);
+        list.setSelector(background);
 		list.setDivider(null);
 
 	}
