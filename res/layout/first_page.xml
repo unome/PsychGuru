@@ -1,10 +1,10 @@
 <!--?xml version="1.0" encoding="UTF-8"?-->
-<RelativeLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android" 
-    android:orientation="vertical" 
-    android:layout_width="fill_parent" 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/app_background">
+    android:background="@drawable/app_background"
+    android:orientation="vertical" >
+
     <ImageView
         android:id="@+id/imageButton1"
         android:layout_width="40dip"
@@ -14,14 +14,54 @@
         android:background="@android:color/transparent"
         android:src="@drawable/home_icon" />
 
-    <ExpandableListView
-        android:id="@+id/eL_mainList"
-        android:layout_marginLeft="20dp"
+    <Button
+        android:id="@+id/button_okfirstpage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="57dp" >
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:text="OK"
+        android:textColor="@color/button_text_color"
+        android:textSize="@dimen/textSize" />
 
+    <ExpandableListView
+        android:id="@+id/eL_mainList"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_below="@+id/imageButton1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp" >
     </ExpandableListView>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/imageButton1"
+        android:text="Select a topic"
+        android:textSize="@dimen/textSize" />
+
+    <TextView
+        android:id="@+id/tV_subTopicView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/eL_mainList"
+        android:text="Select a sub-topic"
+        android:textSize="@dimen/textSize" />
+
+    <Spinner
+        android:id="@+id/sP_subTopics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/imageButton1"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="18dp"
+        android:background="@android:color/transparent"
+        android:configChanges="orientation" />
+
 </RelativeLayout>

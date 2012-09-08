@@ -76,11 +76,11 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="30dp"
-        android:background="@android:color/transparent"
         android:onClick="onClickHandler"
         android:paddingBottom="10dip"
         android:paddingTop="10dip"
         android:text="Enter"
+       	android:background="@android:color/transparent"
         android:textColor="@color/button_text_color"
         android:textSize="@dimen/textSize" />
 

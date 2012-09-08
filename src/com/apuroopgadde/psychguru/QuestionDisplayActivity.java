@@ -11,10 +11,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -28,7 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.ViewGroup;
 
-public class QuestionDisplayActivity extends Activity implements OnItemSelectedListener{
+public class QuestionDisplayActivity extends Activity implements OnItemSelectedListener,OnClickListener{
 	final String TAG="psychGuru";
 	int questionId=0;
 	int totalNoOfQues=0;
@@ -37,6 +42,17 @@ public class QuestionDisplayActivity extends Activity implements OnItemSelectedL
 	private String answered = "false";
 	ArrayList<String> checked = new ArrayList<String>();
 	DbHelper dbhelper;
+	DisplayMetrics dm = getResources().getDisplayMetrics();
+    private static final int SWIPE_MIN_DISTANCE = 120;
+    private static final int SWIPE_MAX_OFF_PATH = 250;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+	int REL_SWIPE_MIN_DISTANCE = (int)(SWIPE_MIN_DISTANCE * dm.densityDpi / 160.0f);
+	int REL_SWIPE_MAX_OFF_PATH = (int)(SWIPE_MAX_OFF_PATH * dm.densityDpi / 160.0f);
+	int REL_SWIPE_THRESHOLD_VELOCITY = (int)(SWIPE_THRESHOLD_VELOCITY * dm.densityDpi / 160.0f);
+	private GestureDetector gestureDetector;
+	View.OnTouchListener gestureListener;
+	Context context;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,6 +60,14 @@ public class QuestionDisplayActivity extends Activity implements OnItemSelectedL
 		dbhelper = new DbHelper(this);
 		Bundle extra = getIntent().getExtras();
 		answeredQues=extra.getStringArrayList("answeredQues");
+		// Gesture detection
+		gestureDetector = new GestureDetector(new MyGestureDetector());
+		gestureListener = new View.OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				return gestureDetector.onTouchEvent(event);
+			}
+		};
+		context=this;
 		showContent();
 	}
 
@@ -108,7 +132,11 @@ public class QuestionDisplayActivity extends Activity implements OnItemSelectedL
 		sp_quesNo.setAdapter(spinnerAdapter);
 		sp_quesNo.setSelection(currQuestion-1); //Use this to move the value in spinner
 		sp_quesNo.setOnItemSelectedListener(this);
+		sp_quesNo.setOnClickListener(this); 
+		sp_quesNo.setOnTouchListener(gestureListener);
 		TableLayout tl = (TableLayout) findViewById(R.id.tL_choiceTable);
+		tl.setOnClickListener(this); 
+		tl.setOnTouchListener(gestureListener);
 		tl.removeAllViews();
 		Button doneButton=(Button)findViewById(R.id.button_checkAnswer);
 		Button prevQuesButton=(Button)findViewById(R.id.button_prevQues);
@@ -125,8 +153,9 @@ public class QuestionDisplayActivity extends Activity implements OnItemSelectedL
 			sqlIt.move(currQuestion-1);
 			questionId=sqlIt.getInt(0);
 			TextView quesText = (TextView)findViewById(R.id.tV_quesDisplay);
-			Log.d(TAG,"question:"+sqlIt.getString(2));
 			quesText.setText(sqlIt.getString(2));
+			quesText.setOnClickListener(this); 
+			quesText.setOnTouchListener(gestureListener);
 			answered=sqlIt.getString(3);
 		}
 		if(currQuestion==1)
@@ -276,6 +305,61 @@ public class QuestionDisplayActivity extends Activity implements OnItemSelectedL
 	public void onNothingSelected(AdapterView<?> arg0) {
 		// TODO Auto-generated method stub
 
+	}
+	class MyGestureDetector extends SimpleOnGestureListener {
+		@Override
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+			try {
+				if (Math.abs(e1.getY() - e2.getY()) > REL_SWIPE_MAX_OFF_PATH)
+					return false;
+				// right to left swipe
+				if(e1.getX() - e2.getX() > REL_SWIPE_MIN_DISTANCE && Math.abs(velocityX) > REL_SWIPE_THRESHOLD_VELOCITY) 
+				{
+					nextQuestion();
+				}  
+				else if (e2.getX() - e1.getX() > REL_SWIPE_MIN_DISTANCE && Math.abs(velocityX) > REL_SWIPE_THRESHOLD_VELOCITY)
+				{
+					prevQuestion();
+				}
+			} catch (Exception e) {
+				// nothing
+			}
+			return false;
+		}
+
+		private void prevQuestion() {
+			if(currQuestion!=1)
+			{
+			final SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences( QuestionDisplayActivity.this);
+			int prevQuestionValue = wmbPreference.getInt("currentQuestion",1)-1;
+			SharedPreferences.Editor editor = wmbPreference.edit();
+			editor.putInt("currentQuestion",prevQuestionValue);
+			editor.commit();
+			Intent showQuestions = new Intent( QuestionDisplayActivity.this,QuestionDisplayActivity.class);
+			showQuestions.putStringArrayListExtra("answeredQues",answeredQues);
+			startActivityForResult(showQuestions,0);
+			}
+		}
+
+		private void nextQuestion() {
+			if(currQuestion!=totalNoOfQues)
+			{
+				final SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences( QuestionDisplayActivity.this);
+				int prevQuestionValue = wmbPreference.getInt("currentQuestion",1)-1;
+				SharedPreferences.Editor editor = wmbPreference.edit();
+				editor.putInt("currentQuestion",prevQuestionValue);
+				editor.commit();
+				Intent showQuestions = new Intent( QuestionDisplayActivity.this,QuestionDisplayActivity.class);
+				showQuestions.putStringArrayListExtra("answeredQues",answeredQues);
+				startActivityForResult(showQuestions,0);
+			}
+		}
+
+	}
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
